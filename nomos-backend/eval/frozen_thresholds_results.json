@@ -1,0 +1,658 @@
+{
+ "generated_at": "2026-09-12T17:17:27+0100",
+ "golden": "../eval/golden/za.json",
+ "k": 10,
+ "summary": {
+  "n_total": 30,
+  "n_answerable_in_corpus": 11,
+  "n_must_refuse": 5,
+  "recall_at_10": 1.0,
+  "mrr": 0.955,
+  "refusal_accuracy": 1.0,
+  "false_answers": [],
+  "false_refusals": [],
+  "n_ooc_answerable_refused": 14,
+  "ooc_answerable_refused_ids": [
+   "za-008",
+   "za-009",
+   "za-010",
+   "za-011",
+   "za-012",
+   "za-013",
+   "za-014",
+   "za-015",
+   "za-020",
+   "za-021",
+   "za-022",
+   "za-023",
+   "za-024",
+   "za-025"
+  ],
+  "n_out_of_corpus_skipped": 14,
+  "out_of_corpus_ids": [
+   "za-008",
+   "za-009",
+   "za-010",
+   "za-011",
+   "za-012",
+   "za-013",
+   "za-014",
+   "za-015",
+   "za-020",
+   "za-021",
+   "za-022",
+   "za-023",
+   "za-024",
+   "za-025"
+  ],
+  "mean_coverage_answerable": 0.909
+ },
+ "rows": [
+  {
+   "id": "za-001",
+   "question": "What are the overtime rules for employees under the BCEA?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 10,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 7127.9,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#10",
+    "za-act-75-1997-bcea#8",
+    "za-act-75-1997-bcea#9",
+    "za-act-75-1997-bcea#12",
+    "za-act-75-1997-bcea#11",
+    "za-act-75-1997-bcea#7",
+    "za-act-75-1997-bcea#13",
+    "za-act-75-1997-bcea#49",
+    "za-act-75-1997-bcea#50",
+    "za-act-75-1997-bcea#50"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#10"
+   ]
+  },
+  {
+   "id": "za-002",
+   "question": "What are the maximum ordinary hours of work per week under the BCEA?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 5,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5738.4,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#9",
+    "za-act-75-1997-bcea#8",
+    "za-act-75-1997-bcea#12",
+    "za-act-75-1997-bcea#11",
+    "za-act-75-1997-bcea#10"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#9"
+   ]
+  },
+  {
+   "id": "za-003",
+   "question": "How much notice must an employer give to terminate employment under BCEA section 37?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 4,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5931.9,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#37",
+    "za-act-75-1997-bcea#38",
+    "za-act-75-1997-bcea#84",
+    "za-act-75-1997-bcea#36"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#37"
+   ]
+  },
+  {
+   "id": "za-004",
+   "question": "How many days of annual leave is an employee entitled to under the BCEA?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 4,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5536.5,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#20",
+    "za-act-75-1997-bcea#20",
+    "za-act-75-1997-bcea#21",
+    "za-act-75-1997-bcea#19"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#20"
+   ]
+  },
+  {
+   "id": "za-005",
+   "question": "What sick leave rights do employees have under BCEA section 22?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.7,
+   "degraded": false,
+   "n_excerpts": 4,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5937.8,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#22",
+    "za-act-75-1997-bcea#23",
+    "za-act-75-1997-bcea#24",
+    "za-act-75-1997-bcea#19"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#22"
+   ]
+  },
+  {
+   "id": "za-006",
+   "question": "What maternity leave is an employee entitled to under the BCEA?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 2,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5254.6,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#25",
+    "za-act-75-1997-bcea#26"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#25"
+   ]
+  },
+  {
+   "id": "za-007",
+   "question": "When is severance pay due on dismissal for operational requirements and how much?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 4,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 35561.0,
+   "_ranked_ids": [
+    "za-act-75-1997-bcea#41",
+    "za-act-75-1997-bcea#40",
+    "za-act-75-1997-bcea#35",
+    "za-act-75-1997-bcea#84"
+   ],
+   "_expected_ids": [
+    "za-act-75-1997-bcea#41"
+   ]
+  },
+  {
+   "id": "za-008",
+   "question": "What makes a dismissal unfair under LRA section 188?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "LRA s188"
+   ],
+   "total_ms": 5781.8,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-009",
+   "question": "Which dismissal reasons are automatically unfair under LRA section 187?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "LRA s187"
+   ],
+   "total_ms": 5358.7,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-010",
+   "question": "What consultation process must an employer follow before retrenching under LRA section 189?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "LRA s189"
+   ],
+   "total_ms": 5877.1,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-011",
+   "question": "When is a strike protected under the LRA and what limits apply?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "LRA s64",
+    "LRA s65"
+   ],
+   "total_ms": 5323.6,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-012",
+   "question": "On what lawful grounds may a business process personal information under POPIA?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "POPIA s11",
+    "POPIA s8"
+   ],
+   "total_ms": 4832.3,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-013",
+   "question": "What rights does a data subject have to access their personal information under POPIA section 23?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "POPIA s23"
+   ],
+   "total_ms": 36620.2,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-014",
+   "question": "When may a business send direct marketing by email or SMS under POPIA section 69?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "POPIA s69"
+   ],
+   "total_ms": 5430.8,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-015",
+   "question": "What must a responsible party do about information security and security compromises under POPIA?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "POPIA s19",
+    "POPIA s22"
+   ],
+   "total_ms": 4955.3,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-016",
+   "question": "What are the duties of directors under section 76 of the Companies Act 71 of 2008?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 1.0,
+   "degraded": false,
+   "n_excerpts": 3,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5277.9,
+   "_ranked_ids": [
+    "za-act-71-2008-companies#76",
+    "za-act-71-2008-companies#76",
+    "za-act-71-2008-companies#76"
+   ],
+   "_expected_ids": [
+    "za-act-71-2008-companies#76"
+   ]
+  },
+  {
+   "id": "za-017",
+   "question": "When can a director be held personally liable under sections 77 and 218 of the Companies Act?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 1.0,
+   "degraded": false,
+   "n_excerpts": 7,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5845.2,
+   "_ranked_ids": [
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#218"
+   ],
+   "_expected_ids": [
+    "za-act-71-2008-companies#77",
+    "za-act-71-2008-companies#218"
+   ]
+  },
+  {
+   "id": "za-018",
+   "question": "When may a company begin business rescue proceedings under Chapter 6 of the Companies Act?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 1.0,
+   "degraded": false,
+   "n_excerpts": 7,
+   "recall": 1.0,
+   "rr": 0.5,
+   "out_of_corpus_refs": [],
+   "total_ms": 6679.8,
+   "_ranked_ids": [
+    "za-act-71-2008-companies#132",
+    "za-act-71-2008-companies#129",
+    "za-act-71-2008-companies#131",
+    "za-act-71-2008-companies#131",
+    "za-act-71-2008-companies#128",
+    "za-act-71-2008-companies#130",
+    "za-act-71-2008-companies#129"
+   ],
+   "_expected_ids": [
+    "za-act-71-2008-companies#128",
+    "za-act-71-2008-companies#129"
+   ]
+  },
+  {
+   "id": "za-019",
+   "question": "What appraisal rights do dissenting shareholders have under section 164 of the Companies Act?",
+   "must_refuse": false,
+   "refused": false,
+   "refusal_correct": true,
+   "coverage": 0.9,
+   "degraded": false,
+   "n_excerpts": 8,
+   "recall": 1.0,
+   "rr": 1.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 38446.0,
+   "_ranked_ids": [
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#164",
+    "za-act-71-2008-companies#115",
+    "za-act-71-2008-companies#115"
+   ],
+   "_expected_ids": [
+    "za-act-71-2008-companies#164"
+   ]
+  },
+  {
+   "id": "za-020",
+   "question": "On what grounds can administrative action be reviewed under PAJA section 6?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "PAJA s6"
+   ],
+   "total_ms": 7537.2,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-021",
+   "question": "What does section 33 of the Constitution guarantee about administrative action?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "Constitution s33"
+   ],
+   "total_ms": 6316.5,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-022",
+   "question": "What counts as unfair discrimination under section 6 of the Employment Equity Act?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "EEA s6"
+   ],
+   "total_ms": 5306.0,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-023",
+   "question": "What are an employer's general duties to employees under section 8 of the OHSA?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "OHSA s8"
+   ],
+   "total_ms": 5341.3,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-024",
+   "question": "When is a consumer contract term unfair under sections 48 and 49 of the Consumer Protection Act?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "CPA s48",
+    "CPA s49"
+   ],
+   "total_ms": 4915.6,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-025",
+   "question": "What is reckless credit under sections 80 and 81 of the National Credit Act?",
+   "must_refuse": false,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [
+    "NCA s80",
+    "NCA s81"
+   ],
+   "total_ms": 20692.4,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-026",
+   "question": "What are the unfair dismissal qualifying periods under the Employment Rights Act 1996?",
+   "must_refuse": true,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5591.3,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-027",
+   "question": "What overtime exemptions apply under the US Fair Labor Standards Act?",
+   "must_refuse": true,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5742.2,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-028",
+   "question": "What are the consent requirements under the Protection of Data Privacy Act 2021?",
+   "must_refuse": true,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 5126.3,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-029",
+   "question": "What did the court hold on the merits in Mthembu v Santam Insurance?",
+   "must_refuse": true,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 9688.2,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  },
+  {
+   "id": "za-030",
+   "question": "What are the current B-BBEE ICT sector code thresholds for exempted micro enterprises?",
+   "must_refuse": true,
+   "refused": true,
+   "refusal_correct": true,
+   "coverage": 0.0,
+   "degraded": false,
+   "n_excerpts": 0,
+   "recall": null,
+   "rr": 0.0,
+   "out_of_corpus_refs": [],
+   "total_ms": 7095.4,
+   "_ranked_ids": [],
+   "_expected_ids": []
+  }
+ ]
+}

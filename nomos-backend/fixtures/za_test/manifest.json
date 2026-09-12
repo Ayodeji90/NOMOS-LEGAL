@@ -1,0 +1,14 @@
+{
+  "jurisdiction": "za",
+  "version": "1.0",
+  "last_updated": "2026-09-10",
+  "description": "Test manifest for ZA legislation with smoke section",
+  "sections": [
+    {"id": "za_section_10", "title": "Overtime working time", "act": "BCEA"},
+    {"id": "za_section_20", "title": "Annual leave", "act": "BCEA"},
+    {"id": "za_section_37", "title": "Notice period", "act": "BCEA"},
+    {"id": "za_smoke_section_999", "title": "SMOKE SECTION - Must be present for build to pass", "act": "TEST_ACT"},
+    {"id": "za_section_41", "title": "Severance pay", "act": "LRA"},
+    {"id": "za_section_76", "title": "Director duties - good faith", "act": "Companies Act"}
+  ]
+}

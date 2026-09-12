@@ -1,0 +1,72 @@
+{
+  "version": "1.0",
+  "description": "Structural override rules for controlling provision checks",
+  "jurisdictions": {
+    "za": {
+      "name": "South Africa",
+      "controlling_provision_rules": {
+        "demote_to_suggestion": true,
+        "overrides": [
+          {
+            "pattern": "general provisions",
+            "action": "suggest",
+            "reason": "General provisions are often not controlling"
+          },
+          {
+            "pattern": "interpretation",
+            "action": "suggest",
+            "reason": "Interpretation sections are typically not controlling"
+          },
+          {
+            "pattern": "definitions",
+            "action": "suggest",
+            "reason": "Definition sections are not controlling provisions"
+          }
+        ]
+      }
+    },
+    "ng": {
+      "name": "Nigeria",
+      "controlling_provision_rules": {
+        "demote_to_suggestion": true,
+        "overrides": [
+          {
+            "pattern": "general provisions",
+            "action": "suggest",
+            "reason": "General provisions are often not controlling"
+          },
+          {
+            "pattern": "interpretation",
+            "action": "suggest",
+            "reason": "Interpretation sections are typically not controlling"
+          },
+          {
+            "pattern": "definitions",
+            "action": "suggest",
+            "reason": "Definition sections are not controlling provisions"
+          }
+        ]
+      }
+    }
+  },
+  "global_defaults": {
+    "demote_to_suggestion": true,
+    "overrides": [
+      {
+        "pattern": "general provisions",
+        "action": "suggest",
+        "reason": "General provisions are often not controlling"
+      },
+      {
+        "pattern": "interpretation",
+        "action": "suggest",
+        "reason": "Interpretation sections are typically not controlling"
+      },
+      {
+        "pattern": "definitions",
+        "action": "suggest",
+        "reason": "Definition sections are not controlling provisions"
+      }
+    ]
+  }
+}

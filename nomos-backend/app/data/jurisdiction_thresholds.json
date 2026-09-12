@@ -1,0 +1,60 @@
+{
+  "version": "1.0",
+  "description": "Jurisdiction-specific thresholds for verification and coverage checks",
+  "jurisdictions": {
+    "za": {
+      "name": "South Africa",
+      "coverage_threshold": 0.5,
+      "min_excerpts_for_answer": 3,
+      "citation_realism_threshold": 0.8,
+      "section_realism_threshold": 0.7,
+      "entailment_threshold": 0.6,
+      "currency_disclosure_days": 365,
+      "acts": {
+        "BCEA": {
+          "min_excerpts": 2,
+          "priority": "high"
+        },
+        "Companies Act": {
+          "min_excerpts": 2,
+          "priority": "high"
+        },
+        "Employment Equity Act": {
+          "min_excerpts": 1,
+          "priority": "medium"
+        }
+      }
+    },
+    "ng": {
+      "name": "Nigeria",
+      "coverage_threshold": 0.30,
+      "min_excerpts_for_answer": 3,
+      "citation_realism_threshold": 0.75,
+      "section_realism_threshold": 0.65,
+      "entailment_threshold": 0.55,
+      "currency_disclosure_days": 365,
+      "acts": {
+        "Labour Act": {
+          "min_excerpts": 2,
+          "priority": "high"
+        },
+        "Companies and Allied Matters Act": {
+          "min_excerpts": 2,
+          "priority": "high"
+        },
+        "Employee Compensation Act": {
+          "min_excerpts": 1,
+          "priority": "medium"
+        }
+      }
+    }
+  },
+  "global_defaults": {
+    "coverage_threshold": 0.35,
+    "min_excerpts_for_answer": 3,
+    "citation_realism_threshold": 0.8,
+    "section_realism_threshold": 0.7,
+    "entailment_threshold": 0.6,
+    "currency_disclosure_days": 365
+  }
+}

@@ -1,0 +1,129 @@
+[project]
+name = "nomos-backend"
+version = "0.1.0"
+description = "NOMOS v2 - Legal AI/RAG Backend"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    # Web framework
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "gunicorn>=21.2.0",
+
+    # Data layer
+    "sqlalchemy[asyncio]>=2.0.0",
+    "asyncpg>=0.29.0",
+    "psycopg2-binary>=2.9.0",
+    "alembic>=1.13.0",
+    "pgvector>=0.2.0",
+    "redis>=5.0.0",
+    "fakeredis>=2.21.0",
+
+    # Google Cloud
+    "google-cloud-firestore>=2.16.0",
+    "google-cloud-storage>=2.16.0",
+    "google-cloud-secret-manager>=2.18.0",
+    "google-generativeai>=0.7.0",
+    "vertexai>=1.40.0",
+
+    # Auth & Security (passwords: stdlib hashlib.scrypt, see app/core/auth.py)
+    "python-jose[cryptography]>=3.3.0",
+    "python-multipart>=0.0.6",
+
+    # Config & Validation
+    "pydantic>=2.6.0",
+    "pydantic-settings>=2.1.0",
+    "pydantic-extra-types>=2.4.0",
+
+    # HTTP Client
+    "httpx>=0.26.0",
+
+    # Utilities
+    "python-dotenv>=1.0.0",
+    "structlog>=24.1.0",
+    "tenacity>=8.2.0",
+    "orjson>=3.9.0",
+
+    # Parsing
+    "lxml>=5.0.0",
+    "beautifulsoup4>=4.12.0",
+
+    # Testing
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.0",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+    "ipython>=8.18.0",
+]
+
+[project.optional-dependencies]
+dev = []
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "UP",  # pyupgrade
+    "B",   # flake8-bugbear
+    "C4",  # flake8-comprehensions
+    "T20", # flake8-print
+]
+ignore = ["E501", "B008"]
+per-file-ignores = { "tests/*" = ["S101", "S106", "T201"], "alembic/*" = ["S101"], "scripts/*" = ["T201"], "app/parsers/*" = ["T201", "F841", "B007"], "app/chunkers/*" = ["T201"], "app/services/ingestion_service.py" = ["T201"], "app/services/ai/verifier_service.py" = ["F841"], "app/schemas/writer.py" = ["N815"], "app/core/rate_limit.py" = ["F841"], "app/main.py" = ["E402"], "app/models/__init__.py" = ["F401", "UP042"], "app/api/v1/*" = ["N815", "F841", "E712"], "app/data/*.json" = ["B018"] }
+
+[tool.alembic]
+script_location = "alembic"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+strict_optional = true
+show_error_codes = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+
+[tool.coverage.run]
+source = ["app"]
+omit = ["tests/*", "alembic/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+]

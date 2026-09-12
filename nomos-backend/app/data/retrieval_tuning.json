@@ -1,0 +1,63 @@
+{
+  "version": "3.0-frozen",
+  "updated": "2026-09-12",
+  "frozen": true,
+  "frozen_date": "2026-09-12",
+  "description": "Retrieval tuning knobs (Week 4 E2, FROZEN per Week 11 E2 / Week 14 E2 -- see docs/week11-threshold-freeze.md). Tuned against eval/golden/za.json via scripts/run_retrieval_eval.py. From the prototype freeze onward, ANY change here requires an eval delta AND E1 sign-off (plan W14: 'no new tuning without delta + E1 sign-off').",
+  "retrieval": {
+    "jurisdiction": "za",
+    "per_leg_k": 50,
+    "rrf_k": 60,
+    "rrf_weights": {
+      "dense": 1.0,
+      "lexical": 1.0
+    },
+    "tsquery_mode": "or_fallback",
+    "min_lexeme_length": 2,
+    "max_lexemes": 24
+  },
+  "rerank": {
+    "model": "gemini-2.5-flash",
+    "temperature": 0.0,
+    "max_output_tokens": 1024,
+    "timeout_seconds": 11.0,
+    "timeout_retries": 1,
+    "min_keep": 8,
+    "max_keep": 12,
+    "candidate_pool": 50,
+    "prompt_variant": "v2-keep-definitional"
+  },
+  "coverage_thresholds": {
+    "_note": "Retrieval-side coverage gate. za 0.5 per Week 3 plan (IMPLEMENTATION_PLAN_15W_DETAILED.md W4: tune from eval deltas). Eval showed answerable in-corpus mean coverage 0.89; 0.5 keeps headroom above the observed minimum (0.7) while still refusing thin/out-of-corpus questions. ng 0.4 initial (Week 5: corpus is a small sample; tune against the NG golden slice before NG goes live -- see week5-tuning-note.md).",
+    "za": 0.5,
+    "ng": 0.4
+  },
+  "boosts": {
+    "_note": "Post-fusion structural boosts (Week 5 E2, plan section 3.7: soft boosts post-fusion). Weights are additive score bonuses on the fused RRF score; they reorder but never add/remove hits. Any change here needs an eval delta (Week 4 gate).",
+    "act_match": 0.15,
+    "section_match": 0.10,
+    "authority": 0.05,
+    "authority_max_level": 10.0
+  },
+  "baseline_eval": {
+    "golden_set": "eval/golden/za.json",
+    "k": 10,
+    "recall_at_10": 1.0,
+    "mrr": 0.955,
+    "refusal_accuracy": 1.0,
+    "false_answers": 0,
+    "false_refusals": 0,
+    "mean_coverage_answerable": 0.891,
+    "n_out_of_corpus_refused": 14,
+    "results_file": "eval/retrieval_results.json",
+    "notes": "30 golden items: 11 answerable in held corpus (BCEA+Companies Act), 14 answerable targeting Acts not yet ingested (correctly refused by the coverage gate), 5 must-refuse (all refused)."
+  },
+  "regression_bars": {
+    "_note": "CI eval-delta gate bars: a retrieval PR must not drop any metric below these floors. Recall/refusal floor is hard (blocking); MRR floor allows 0.05 drift pending golden-set growth.",
+    "recall_at_10_min": 1.0,
+    "mrr_min": 0.9,
+    "refusal_accuracy_min": 1.0,
+    "max_false_answers": 0,
+    "max_false_refusals_in_corpus": 0
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "jurisdiction": "za",
+  "version": "1.0",
+  "last_updated": "2026-09-10",
+  "description": "Manifest for ZA legal corpus snapshot showing available sections",
+  "sections": [
+    {"id": "za_section_1", "title": "Definitions", "act": "BCEA", "chapter": 1},
+    {"id": "za_section_2", "title": "Application of Act", "act": "BCEA", "chapter": 1},
+    {"id": "za_section_3", "title": "Variation of Sectors", "act": "BCEA", "chapter": 1},
+    {"id": "za_section_6", "title": "Ordinary Hours of Work", "act": "BCEA", "chapter": 2},
+    {"id": "za_section_7", "title": "Overtime", "act": "BCEA", "chapter": 2},
+    {"id": "za_section_8", "title": "Overtime Rates", "act": "BCEA", "chapter": 2},
+    {"id": "za_section_9", "title": "Meal Intervals", "act": "BCEA", "chapter": 2},
+    {"id": "za_section_10", "title": "Overtime Working Time", "act": "BCEA", "chapter": 2},
+    {"id": "za_smoke_section_999", "title": "SMOKE SECTION - Critical compliance check", "act": "TEST_ACT", "chapter": 99},
+    {"id": "za_section_101", "title": "Another test section", "act": "TEST_ACT", "chapter": 99},
+    {"id": "za_section_102", "title": "Yet another test section", "act": "TEST_ACT", "chapter": 99},
+    {"id": "za_section_1_ca", "title": "Definitions", "act": "Companies Act", "chapter": 1},
+    {"id": "za_section_2_ca", "title": "Purpose of Act", "act": "Companies Act", "chapter": 1},
+    {"id": "za_section_3_ca", "title": "Application of Act", "act": "Companies Act", "chapter": 1},
+    {"id": "za_section_4_ca", "title": "Interpretation of Act", "act": "Companies Act", "chapter": 1},
+    {"id": "za_section_5_ca", "title": "Act Binding on State", "act": "Companies Act", "chapter": 1},
+    {"id": "za_section_6_ca", "title": "Incorporation of Companies", "act": "Companies Act", "chapter": 2},
+    {"id": "za_section_7_ca", "title": "Alternative Methods of Incorporation", "act": "Companies Act", "chapter": 2},
+    {"id": "za_section_75_ca", "title": "Directors to Act in Good Faith", "act": "Companies Act", "chapter": 2},
+    {"id": "za_section_76_ca", "title": "Standards of Directors Conduct", "act": "Companies Act", "chapter": 2},
+    {"id": "za_section_77_ca", "title": "Liability of Directors", "act": "Companies Act", "chapter": 2},
+    {"id": "za_section_188_ca", "title": "Unfair Dismissal", "act": "Companies Act", "chapter": 2}
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "jurisdiction": "za",
+  "fetched_at": "2026-09-10T21:10:27.542336+00:00",
+  "quarantined_fabricated": [
+    "bcea_full.xml",
+    "companies_act_full.xml"
+  ],
+  "acts": {
+    "bcea": {
+      "title": "Basic Conditions of Employment Act",
+      "act_no": "Act 75 of 1997",
+      "assent_date": "1997-12-02",
+      "commencement_date": "1998-12-01",
+      "pdf_name": "bcea_full.pdf",
+      "text_name": "bcea_full.txt",
+      "source_url": "https://into-sa.com/wp-content/uploads/Basic_Conditions_of_Employment_Act__1997_.pdf",
+      "source_note": "Typeset gazette-layout edition of the Act as gazetted (1997). Mirror copy; official labour.gov.za amended-act PDF has corrupted font encoding. Text is a government edict (public domain).",
+      "pdf_sha256": "3ef2b2e780d01767214e1606de0d71d52572bcde3ed228ca0631fd59646598e6",
+      "text_sha256": "44f83d768d96e17c4c46d4f66f1abdfc7535951fc3059be7de11a5a03cb1349c",
+      "text_bytes": 138584
+    },
+    "companies_act": {
+      "title": "Companies Act",
+      "act_no": "Act 71 of 2008",
+      "assent_date": "2009-04-08",
+      "commencement_date": "2011-05-01",
+      "pdf_name": "companies_act_full.pdf",
+      "text_name": "companies_act_full.txt",
+      "source_url": "https://www.gov.za/sites/default/files/gcis_document/201409/321214210.pdf",
+      "source_note": "Official Government Gazette 32121 (9 April 2009) PDF from gov.za, as gazetted. Text is a government edict (public domain).",
+      "pdf_sha256": "6387b2fd4f52a2c71997efbb3b0114f7bcd393cee991255bd73a404d7c85dd40",
+      "text_sha256": "a799cf2bcc9bf837881e73e8d68a96cad6f1f44c117417a008d9fb53b1c85ac8",
+      "text_bytes": 778638
+    }
+  }
+}

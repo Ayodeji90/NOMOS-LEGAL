@@ -1,0 +1,87 @@
+{
+  "jurisdiction": "za",
+  "version": "1.0",
+  "last_updated": "2026-09-10",
+  "sections": [
+    {
+      "id": "za_section_10",
+      "title": "Overtime working time",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_37",
+      "title": "Notice period",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_20",
+      "title": "Annual leave",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_22",
+      "title": "Sick leave",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_27",
+      "title": "Family responsibility leave",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_25",
+      "title": "Maternity leave",
+      "act": "BCEA"
+    },
+    {
+      "id": "za_section_188",
+      "title": "Unfair dismissal procedures",
+      "act": "LRA"
+    },
+    {
+      "id": "za_section_185",
+      "title": "Unfair dismissal definitions",
+      "act": "LRA"
+    },
+    {
+      "id": "za_section_187",
+      "title": "Automatically unfair dismissal",
+      "act": "LRA"
+    },
+    {
+      "id": "za_section_41",
+      "title": "Severance pay",
+      "act": "LRA"
+    },
+    {
+      "id": "za_section_76",
+      "title": "Director duties - good faith",
+      "act": "Companies Act"
+    },
+    {
+      "id": "za_section_75",
+      "title": "Director duties - care and skill",
+      "act": "Companies Act"
+    },
+    {
+      "id": "za_section_129",
+      "title": "Business rescue proceedings",
+      "act": "Companies Act"
+    },
+    {
+      "id": "za_section_11",
+      "title": "POPIA processing conditions",
+      "act": "POPIA"
+    },
+    {
+      "id": "za_section_19",
+      "title": "POPIA security safeguards",
+      "act": "POPIA"
+    },
+    {
+      "id": "za_section_22_popia",
+      "title": "POPIA breach notification",
+      "act": "POPIA"
+    }
+  ]
+}

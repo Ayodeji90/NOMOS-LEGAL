@@ -1,0 +1,102 @@
+{
+  "version": "1.0",
+  "jurisdiction": "ng",
+  "last_updated": "2026-09-12",
+  "description": "Nigerian legal synonym dictionary for query expansion (dict format v1). Maps colloquial/alternative terms to statutory language. Corpus scope for the prototype: Labour Act (Cap L1 LFN 2004) and Companies and Allied Matters Act 2020; other Acts are listed for alias resolution only and stay honestly out of coverage until ingested.",
+  "synonyms": {
+    "employment": {
+      "dismissal": ["dismissal", "termination of employment", "sacking", "firing", "wrongful dismissal", "unlawful termination"],
+      "notice_period": ["notice", "notice period", "one month notice", "termination notice", "pay in lieu of notice"],
+      "overtime": ["overtime", "extra hours", "additional hours", "overtime pay", "hours beyond normal"],
+      "leave": ["annual leave", "leave allowance", "holiday", "sick leave", "maternity leave"],
+      "wages": ["wages", "salary", "remuneration", "pay", "emoluments"],
+      "employment_contract": ["contract of employment", "employment agreement", "letter of employment"],
+      "apprentice": ["apprentice", "apprenticeship", "indentured learner"],
+      "worker": ["worker", "employee", "staff member"],
+      "employer": ["employer", "company", "organisation", "firm"],
+      "recruitment": ["recruitment", "hiring", "employment of workers", "labour officer"],
+      "women_employment": ["night work women", "underground work women", "maternity protection"],
+      "forced_labour": ["forced labour", "compulsory labour", "free labour"],
+      "labour_act": ["labour act", "labour act cap l1", "labour laws of the federation", "cap l1 lfn 2004"]
+    },
+    "company_law": {
+      "company": ["company", "incorporated", "limited liability", "ltd", "plc", "gte"],
+      "director": ["director", "board of directors", "board member"],
+      "shareholder": ["shareholder", "member", "stockholder", "owner of shares"],
+      "cama": ["cama", "companies and allied matters act", "cama 2020", "companies and allied matters act 2020"],
+      "incorporation": ["incorporation", "registration of company", "certificate of incorporation", "cac registration"],
+      "moi": ["memorandum of incorporation", "company memorandum", "articles of association", "memorandum and articles"],
+      "secretary": ["company secretary", "corporate secretary"],
+      "annual_returns": ["annual returns", "yearly returns", "cac annual return"],
+      "winding_up": ["winding up", "liquidation", "dissolution", "insolvency winding"],
+      "arrangement": ["scheme of arrangement", "compromise", "arrangement with creditors"],
+      "insolvency": ["insolvency", "unable to pay debts", "bankruptcy"]
+    },
+    "industrial_relations": {
+      "trade_union": ["trade union", "labour union", "staff union", "workers union"],
+      "strike": ["strike", "strike action", "industrial action", "lockout"],
+      "collective_bargaining": ["collective bargaining", "collective agreement", "negotiation with union"],
+      "nlc": ["nigeria labour congress", "nlc", "trade union congress", "tuc"],
+      "minimum_wage": ["minimum wage", "national minimum wage", "wage floor"],
+      "nsitf": ["nsitf", "nigeria social insurance trust fund"],
+      "pencom": ["pencom", "pension commission", "pension contribution"]
+    },
+    "contract_law": {
+      "contract": ["contract", "agreement", "deal", "arrangement"],
+      "breach": ["breach", "breach of contract", "broken contract", "violation"],
+      "termination": ["termination", "cancellation", "ending", "rescission"],
+      "damages": ["damages", "compensation", "loss", "financial loss"],
+      "consumer": ["consumer", "customer", "buyer", "purchaser"],
+      "fccpa": ["fccpa", "federal competition and consumer protection act", "consumer protection act nigeria"]
+    },
+    "property_law": {
+      "property": ["property", "real estate", "land", "building", "immovable property"],
+      "lease": ["lease", "tenancy", "rental agreement", "rent"],
+      "eviction": ["eviction", "recover possession", "quit notice"],
+      "land_use_act": ["land use act", "land use decree", "certificate of occupancy", "c of o", "governor consent"]
+    },
+    "data_protection": {
+      "ndpa": ["ndpa", "nigeria data protection act", "data protection act 2023", "ndpr", "nigeria data protection regulation"],
+      "personal_data": ["personal data", "personal information", "pii", "data subject"],
+      "data_controller": ["data controller", "data processor", "data protection officer"]
+    },
+    "constitutional_law": {
+      "constitution": ["constitution", "1999 constitution", "constitution of the federal republic of nigeria", "cfRN 1999"],
+      "rights": ["fundamental rights", "chapter four", "bill of rights", "human rights"],
+      "fundamental_rights_enforcement": ["fundamental rights enforcement", "frepd", "fundamental rights procedure"]
+    }
+  },
+  "act_aliases": {
+    "labour_act": "Labour Act Cap L1 Laws of the Federation of Nigeria 2004",
+    "cama": "Companies and Allied Matters Act 2020",
+    "employee_compensation_act": "Employee Compensation Act 2010",
+    "trade_unions_act": "Trade Unions Act Cap T14 LFN 2004",
+    "trade_disputes_act": "Trade Disputes Act Cap T8 LFN 2004",
+    "national_minimum_wage_act": "National Minimum Wage Act 2019",
+    "pension_reform_act": "Pension Reform Act 2014",
+    "employees_rights": "Employees' Compensation Act 2010",
+    "ndpa": "Nigeria Data Protection Act 2023",
+    "land_use_act": "Land Use Act Cap L5 LFN 2004",
+    "constitution": "Constitution of the Federal Republic of Nigeria 1999",
+    "fccpa": "Federal Competition and Consumer Protection Act 2018",
+    "factories_act": "Factories Act Cap F1 LFN 2004",
+    "public_enterprises_act": "Public Enterprises (Privatisation and Commercialisation) Act 1999"
+  },
+  "section_patterns": {
+    "notice_period": ["section 11", "s 11", "sec 11"],
+    "hours_of_work": ["section 13", "s 13", "sec 13"],
+    "overtime": ["section 14", "s 14", "sec 14"],
+    "annual_leave": ["section 18", "s 18", "sec 18"],
+    "sick_leave": ["section 16", "s 16", "sec 16"],
+    "maternity_leave": ["section 54", "s 54", "sec 54"],
+    "recruitment": ["section 3", "s 3", "sec 3"],
+    "forced_labour": ["section 73", "s 73", "sec 73"],
+    "incorporation": ["section 37", "s 37", "sec 37", "section 40", "s 40", "sec 40"],
+    "director_duties": ["section 305", "s 305", "sec 305", "section 306", "s 306", "sec 306"],
+    "annual_returns": ["section 417", "s 417", "sec 417", "section 418", "s 418", "sec 418"],
+    "winding_up": ["section 569", "s 569", "sec 569", "section 570", "s 570", "sec 570"],
+    "scheme_of_arrangement": ["section 424", "s 424", "sec 424", "section 425", "s 425", "sec 425"],
+    "ndpa_processing": ["section 24", "s 24", "sec 24", "section 25", "s 25", "sec 25"],
+    "ndpa_consent": ["section 26", "s 26", "sec 26"]
+  }
+}

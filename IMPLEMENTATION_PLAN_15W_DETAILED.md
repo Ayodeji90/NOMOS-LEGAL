@@ -2,6 +2,9 @@
 6 engineers, full-time. Single FastAPI app (Option B).
 Static frontend + Word add-in unchanged. Response contract unchanged.
 
+## Scope focus (locked)
+Current target is South Africa only — willing ZA test users first, before any pivot. Nigeria is next after ZA is proven. GB, US federal, US states, CA, AU, IE, DE, NZ and all other listed countries/states are NOT in prototype scope and stay on the existing lexical path untouched. In the weekly breakdown below, read any non-ZA/NG corpus week as deferred to Phase 2: reassigned to ZA depth (more Acts, regulations pilot, golden-set volume, latency) and NG prep (source licensing, parser spike, manifest design) only.
+
 ## Engineer roles
 
 E1 — Platform Lead / Backend Engineer
@@ -619,6 +622,5 @@ Joint gate M6: prototype accepted, GA scope locked. Tag proto-m6.
 
 ## Staffing fallback
 
-If 5 engineers: cut DE pilot + NZ to lexical fallback, keep all gates.
-If 4 engineers: cut to ZA + GB + US only for prototype, move M3 to GA.
+If headcount drops, protect ZA depth first: cut Nigeria prep, then regulations pilot, never cut eval gates or verification. Prototype stays ZA-only regardless of headcount; Nigeria never pulls ZA resources off its gates.
 First blocker Monday W1: name reviewing lawyer (2 hours/week from W2) or W2 golden sets slip.

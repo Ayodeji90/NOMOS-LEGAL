@@ -1,0 +1,87 @@
+# Cloud Build configuration for NOMOS Backend
+# Automated CI/CD pipeline
+
+steps:
+  # Step 1: Build Docker image
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'build'
+      - '-f'
+      - 'Dockerfile'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - '-t'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
+      - '.'
+
+  # Step 2: Push to Artifact Registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
+
+  # Step 3: Deploy to Cloud Run
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - '${_SERVICE_NAME}'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - '--region'
+      - '${_REGION}'
+      - '--platform'
+      - 'managed'
+      - '--allow-unauthenticated'
+      - '--cpu'
+      - '2'
+      - '--memory'
+      - '4Gi'
+      - '--max-instances'
+      - '100'
+      - '--min-instances'
+      - '0'
+      - '--timeout'
+      - '300'
+      - '--concurrency'
+      - '80'
+      - '--set-env-vars'
+      - 'ENVIRONMENT=${_ENVIRONMENT}'
+      - '--set-env-vars'
+      - 'DATABASE_URL=postgresql+asyncpg://nomos_user:$(nomos-db-password)@/nomos?host=/cloudsql/project-a98ee197-e936-490c-adb:us-central1:nomos-postgres'
+      - '--set-env-vars'
+      - 'REDIS_URL=redis://:$(nomos-redis-password)@10.0.0.3:6379/0'
+      - '--set-env-vars'
+      - 'FIRESTORE_PROJECT_ID=$PROJECT_ID'
+      - '--set-env-vars'
+      - 'GCP_PROJECT_ID=$PROJECT_ID'
+      - '--set-env-vars'
+      - 'VERTEX_AI_LOCATION=${_REGION}'
+      - '--set-env-vars'
+      - 'SECRET_KEY=$(nomos-secret-key)'
+      - '--set-env-vars'
+      - 'VERTEX_API_KEY=$(nomos-vertex-api-key)'
+      - '--set-env-vars'
+      - 'EMBEDDING_PROVIDER=vertex'
+      - '--set-env-vars'
+      - 'LOG_LEVEL=INFO'
+      - '--set-cloudsql-instances'
+      - 'project-a98ee197-e936-490c-adb:us-central1:nomos-postgres'
+      - '--set-secrets'
+      - 'nomos-db-password=nomos-db-password:latest,nomos-redis-password=nomos-redis-password:latest,nomos-secret-key=nomos-secret-key:latest,nomos-vertex-api-key=nomos-vertex-api-key:latest'
+
+# Substitutions
+substitutions:
+  _REGION: 'us-central1'
+  _ENVIRONMENT: 'staging'
+  _REPO_NAME: 'staging-nomos-backend-repo'
+  _SERVICE_NAME: 'staging-nomos-backend'
+
+# Images to be pushed to Artifact Registry
+images:
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
+
+# Timeout
+timeout: '1800s'

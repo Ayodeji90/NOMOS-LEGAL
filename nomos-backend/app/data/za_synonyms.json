@@ -1,0 +1,114 @@
+{
+  "version": "1.0",
+  "jurisdiction": "za",
+  "last_updated": "2026-09-10",
+  "description": "South African legal synonym dictionary for query expansion. Maps colloquial/alternative terms to statutory language.",
+  "synonyms": {
+    "employment": {
+      "dismissal": ["firing", "sacking", "termination", "letting go", "retrenchment", "dismissed", "fired", "sacked"],
+      "notice_period": ["notice", "notice period", "minimum notice", "notice pay", "pay in lieu of notice"],
+      "overtime": ["extra hours", "additional hours", "overtime pay", "overtime rates", "hours beyond normal"],
+      "leave": ["annual leave", "sick leave", "family responsibility leave", "maternity leave", "paternity leave", "parental leave"],
+      "bcea": ["basic conditions of employment act", "bcea", "act 75 of 1997"],
+      "lra": ["labour relations act", "lra", "act 66 of 1995"],
+      "eea": ["employment equity act", "eea", "act 55 of 1998"],
+      "ccma": ["commission for conciliation mediation and arbitration", "ccma"],
+      "unfair_dismissal": ["unfair dismissal", "wrongful dismissal", "unfair termination", "automatically unfair dismissal"],
+      "constructive_dismissal": ["constructive dismissal", "forced resignation", "intolerable working conditions"],
+      "severance": ["severance pay", "retrenchment package", "severance package"],
+      "probation": ["probation period", "probationary period", "trial period"],
+      "contract": ["employment contract", "contract of employment", "service contract"],
+      "independent_contractor": ["contractor", "freelancer", "independent contractor", "consultant"],
+      "employee": ["worker", "staff member", "personnel"],
+      "employer": ["company", "organisation", "business", "firm"]
+    },
+    "company_law": {
+      "company": ["company", "cc", "close corporation", "pty ltd", "proprietary limited", "incorporated", "inc"],
+      "director": ["director", "board member", "board of directors"],
+      "shareholder": ["shareholder", "member", "owner", "stockholder"],
+      "companies_act": ["companies act", "act 71 of 2008", "companies act 71 of 2008"],
+      "moI": ["memorandum of incorporation", "moi", "articles of association", "articles"],
+      "business_rescue": ["business rescue", "rescue proceedings", "rescue plan"],
+      "liquidation": ["liquidation", "winding up", "dissolution"],
+      "solvent": ["solvent", "solvency", "financially sound"],
+      "insolvent": ["insolvent", "insolvency", "unable to pay debts"]
+    },
+    "contract_law": {
+      "contract": ["contract", "agreement", "deal", "arrangement", "compact"],
+      "breach": ["breach", "breach of contract", "broken contract", "violation"],
+      "termination": ["termination", "cancellation", "ending", "rescission"],
+      "damages": ["damages", "compensation", "loss", "financial loss"],
+      "specific_performance": ["specific performance", "enforce performance", "court order to perform"],
+      "cpa": ["consumer protection act", "cpa", "act 68 of 2008"],
+      "consumer": ["consumer", "customer", "buyer", "purchaser"],
+      "supplier": ["supplier", "seller", "vendor", "service provider"]
+    },
+    "property_law": {
+      "property": ["property", "real estate", "immovable property", "land", "building"],
+      "lease": ["lease", "rental agreement", "tenancy agreement", "rent"],
+      "eviction": ["eviction", "evict", "removal", "unlawful occupation"],
+      "pisa": ["prevention of illegal eviction act", "pisa", "act 19 of 1998"],
+      "sectional_title": ["sectional title", "sectional title scheme", "body corporate"],
+      "transfer": ["transfer", "conveyancing", "property transfer", "deeds office"]
+    },
+    "family_law": {
+      "divorce": ["divorce", "dissolution of marriage", "separation"],
+      "maintenance": ["maintenance", "child maintenance", "spousal maintenance", "support"],
+      "custody": ["custody", "care and contact", "guardianship", "primary residence"],
+      "domestic_violence": ["domestic violence", "abuse", "protection order", "interdict"]
+    },
+    "criminal_law": {
+      "bail": ["bail", "release on bail", "bail application"],
+      "arrest": ["arrest", "detained", "taken into custody"],
+      "charge": ["charge", "charged", "accused", "prosecution"],
+      "trial": ["trial", "court case", "hearing", "proceedings"]
+    },
+    "constitutional_law": {
+      "constitution": ["constitution", "the constitution", "constitution of south africa", "act 108 of 1996"],
+      "rights": ["rights", "bill of rights", "constitutional rights", "human rights"],
+      "equality": ["equality", "non-discrimination", "equal treatment", "fair discrimination"],
+      "dignity": ["dignity", "human dignity", "respect"]
+    },
+    "popia": {
+      "popia": ["popia", "protection of personal information act", "act 4 of 2013", "data protection", "privacy act"],
+      "personal_information": ["personal information", "personal data", "pii", "private information"],
+      "processing": ["processing", "collect", "use", "store", "share", "disclose"],
+      "consent": ["consent", "permission", "authorisation", "opt-in"],
+      "data_subject": ["data subject", "individual", "person"],
+      "responsible_party": ["responsible party", "controller", "organisation"],
+      "operator": ["operator", "processor", "third party"],
+      "information_regulator": ["information regulator", "regulator"]
+    }
+  },
+  "act_aliases": {
+    "bcea": "Basic Conditions of Employment Act 75 of 1997",
+    "lra": "Labour Relations Act 66 of 1995",
+    "eea": "Employment Equity Act 55 of 1998",
+    "companies_act": "Companies Act 71 of 2008",
+    "cpa": "Consumer Protection Act 68 of 2008",
+    "pisa": "Prevention of Illegal Eviction from and Unlawful Occupation of Land Act 19 of 1998",
+    "popia": "Protection of Personal Information Act 4 of 2013",
+    "constitution": "Constitution of the Republic of South Africa, 1996",
+    "nc": "National Credit Act 34 of 2005",
+    "paia": "Promotion of Access to Information Act 2 of 2000",
+    "paja": "Promotion of Administrative Justice Act 3 of 2000"
+  },
+  "section_patterns": {
+    "overtime": ["section 10", "s 10", "sec 10"],
+    "notice_period": ["section 37", "s 37", "sec 37"],
+    "annual_leave": ["section 20", "s 20", "sec 20"],
+    "sick_leave": ["section 22", "s 22", "sec 22"],
+    "family_responsibility_leave": ["section 27", "s 27", "sec 27"],
+    "maternity_leave": ["section 25", "s 25", "sec 25"],
+    "dismissal_procedure": ["section 188", "s 188", "sec 188", "section 189", "s 189", "sec 189"],
+    "unfair_dismissal": ["section 185", "s 185", "sec 185", "section 187", "s 187", "sec 187"],
+    "automatically_unfair": ["section 187", "s 187", "sec 187"],
+    "severance_pay": ["section 41", "s 41", "sec 41"],
+    "director_duties": ["section 75", "s 75", "sec 75", "section 76", "s 76", "sec 76"],
+    "business_rescue": ["section 129", "s 129", "sec 129", "section 131", "s 131", "sec 131"],
+    "popia_processing": ["section 11", "s 11", "sec 11", "section 12", "s 12", "sec 12"],
+    "popia_consent": ["section 11", "s 11", "sec 11"],
+    "popia_security": ["section 19", "s 19", "sec 19"],
+    "popia_breach": ["section 22", "s 22", "sec 22"]
+  }
+}

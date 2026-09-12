@@ -1,0 +1,97 @@
+{
+  "jurisdiction": "gb",
+  "version": "1.0",
+  "last_updated": "2026-09-10",
+  "sections": [
+    {
+      "id": "gb_section_94",
+      "title": "Right not to be unfairly dismissed",
+      "act": "Employment Rights Act 1996"
+    },
+    {
+      "id": "gb_section_95",
+      "title": "Remedy for unfair dismissal",
+      "act": "Employment Rights Act 1996"
+    },
+    {
+      "id": "gb_section_86",
+      "title": "Notice period",
+      "act": "Employment Rights Act 1996"
+    },
+    {
+      "id": "gb_section_135",
+      "title": "Redundancy payment calculation",
+      "act": "Employment Rights Act 1996"
+    },
+    {
+      "id": "gb_section_136",
+      "title": "Redundancy payment upper limit",
+      "act": "Employment Rights Act 1996"
+    },
+    {
+      "id": "gb_section_13",
+      "title": "Discrimination",
+      "act": "Equality Act 2010"
+    },
+    {
+      "id": "gb_section_14",
+      "title": "Harassment",
+      "act": "Equality Act 2010"
+    },
+    {
+      "id": "gb_section_26",
+      "title": "Harassment related to protected characteristics",
+      "act": "Equality Act 2010"
+    },
+    {
+      "id": "gb_section_27",
+      "title": "Victimisation",
+      "act": "Equality Act 2010"
+    },
+    {
+      "id": "gb_section_2",
+      "title": "General duties of employers to employees",
+      "act": "Health and Safety at Work etc. Act 1974"
+    },
+    {
+      "id": "gb_section_3",
+      "title": "General duties of employers and self-employed to persons other than employees",
+      "act": "Health and Safety at Work etc. Act 1974"
+    },
+    {
+      "id": "gb_section_171",
+      "title": "General duties of directors",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_172",
+      "title": "Duty to promote the success of the company",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_173",
+      "title": "Duty to exercise independent judgment",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_174",
+      "title": "Duty to exercise reasonable care, skill and diligence",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_175",
+      "title": "Duty to avoid conflicts of interest",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_176",
+      "title": "Duty not to accept benefits from third parties",
+      "act": "Companies Act 2006"
+    },
+    {
+      "id": "gb_section_177",
+      "title": "Duty to declare interest in proposed transaction or arrangement",
+      "act": "Companies Act 2006"
+    }
+  ]
+}

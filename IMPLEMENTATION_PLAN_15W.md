@@ -5,11 +5,14 @@ Companion docs: REDESIGN.md, ARCHITECTURE.md, REDESIGN-PYTHON.md
 Current stack: juris-backend-src (Node/Express, index.js ~2256 lines), per-jurisdiction lexical retrieval, Gemini writer, in-memory state.
 Target stack: single FastAPI app (Option B) on Cloud Run + Postgres pgvector + Redis + Firestore + Vertex AI. Static frontend + Word add-in unchanged.
 
+## 0A. Scope focus (locked)
+Current target is South Africa only. We have willing test users in ZA waiting to use it before any pivot. Nigeria is next after ZA is proven. GB, US federal, US states (19), CA, AU, IE, DE, NZ and all other listed countries/states are explicitly NOT in prototype scope — they stay on the existing lexical path untouched, and any multi-jurisdiction weeks in older drafts of this plan are deferred to post-prototype (Phase 2). No engineer is assigned to non-ZA/NG corpora during the 15 weeks except to keep existing paths from regressing.
+
 ## 0. Definitions
 
 Working prototype means:
   1. Web + Word add-in ask flow works against the v2 API with a compatible response contract (provider, answer, structured, sources, results, matchCount, grounded, jurisdiction, corpus_id, writer, suggestedJurisdiction, errors).
-  2. All live jurisdictions served by one hybrid retrieval path (no per-country reader branches in the hot path). ZA + GB + US federal + US states (19) + CA + AU + IE + DE + NZ.
+  2. South Africa served by one hybrid retrieval path. Nigeria corpus prep runs in parallel from W7 but goes live only after ZA prototype acceptance. All other jurisdictions stay on the existing lexical path untouched for the prototype.
   3. Refusal-first behavior preserved and measurable: wrong-jurisdiction leakage = 0 in eval, must-refuse questions refuse, every [n] resolves, every section ref exists in cited excerpt, currency line present.
   4. Point-in-time corpus: every excerpt carries version + asAt + inForce; answer states law as at max asAt.
   5. Eval harness runs in CI + nightly: recall@10, MRR, leakage rate, refusal correctness, citation validity, invented-section rate, entailment rate.
@@ -17,8 +20,8 @@ Working prototype means:
   7. State out of instance: sessions survive revision, rate limits enforceable under autoscale, quotas per authenticated identity.
   8. Deployable with rollback flag per jurisdiction, corpus snapshot id, per-query trace.
 
-Out of scope for prototype (explicitly deferred to GA):
-  Regulations/SIs beyond a pilot set, full case-law corpus + citator (pilot only), matter-level ACLs / multi-tenant workspaces, self-hosted open-weight LLMs, multi-region + data residency, full billing/usage attribution.
+Out of scope for prototype (explicitly deferred to Phase 2/GA):
+  GB, US federal, US states, CA, AU, IE, DE, NZ and every other non-ZA/NG jurisdiction (no re-chunk, no new parsers, no golden sets); full Nigeria launch (prep only); regulations/SIs beyond a ZA pilot set, full case-law corpus + citator (pilot only), matter-level ACLs / multi-tenant workspaces, self-hosted open-weight LLMs, multi-region + data residency, full billing/usage attribution.
 
 ## 1. Team (6 engineers)
 

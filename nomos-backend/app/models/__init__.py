@@ -88,7 +88,13 @@ class APIKey(Base):
 class Source(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     jurisdiction: Mapped[Jurisdiction] = mapped_column(
-        Enum(Jurisdiction, native_enum=False), index=True, nullable=False
+        # values_callable: persist enum .value ('za'), not .name ('ZA').
+        # Without it this column was written as 'ZA', which broke the
+        # lowercase jurisdiction filter in retrieval (and created a
+        # duplicate-source hazard re-ingestion).
+        Enum(Jurisdiction, native_enum=False, values_callable=lambda e: [m.value for m in e]),
+        index=True,
+        nullable=False,
     )
     source_id: Mapped[str] = mapped_column(String(100), index=True, nullable=False)
     title: Mapped[str] = mapped_column(String(500), nullable=False)
@@ -217,7 +223,8 @@ class Chunk(Base):
 class IngestionRun(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     jurisdiction: Mapped[Jurisdiction] = mapped_column(
-        Enum(Jurisdiction, native_enum=False), nullable=False
+        Enum(Jurisdiction, native_enum=False, values_callable=lambda e: [m.value for m in e]),
+        nullable=False,
     )
     status: Mapped[str] = mapped_column(String(50), nullable=False)
     sources_processed: Mapped[int] = mapped_column(Integer, default=0)

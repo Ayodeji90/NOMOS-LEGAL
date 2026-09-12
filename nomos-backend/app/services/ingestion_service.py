@@ -142,24 +142,17 @@ class IngestionService:
         document_type: DocumentType,
         metadata: dict | None = None,
     ) -> Source:
-        print(f"DEBUG _get_or_create_source: jurisdiction={jurisdiction}, jurisdiction.value={jurisdiction.value}")
         stmt = select(Source).where(
             Source.jurisdiction == jurisdiction,
             Source.source_id == source_id,
         )
-        print(f"DEBUG _get_or_create_source: stmt={stmt}")
-        compiled = stmt.compile()
-        print(f"DEBUG _get_or_create_source: compiled={compiled}")
-        print(f"DEBUG _get_or_create_source: params={compiled.params}")
         try:
             source = (await session.execute(stmt)).scalar_one_or_none()
         except Exception as e:
-            logger.error(f"Error in _get_or_create_source: {e}")
-            logger.error(f"Jurisdiction: {jurisdiction}, value: {jurisdiction.value}")
-            print(f"DEBUG _get_or_create_source: Error executing query: {e}")
+            logger.error("Error in _get_or_create_source: %s", e)
+            logger.error("Jurisdiction: %s, value: %s", jurisdiction, jurisdiction.value)
             raise
         if source is None:
-            print(f"DEBUG _get_or_create_source: Creating new source with jurisdiction={jurisdiction.value}")
             source = Source(
                 jurisdiction=jurisdiction.value,  # Use the enum value, not the enum object
                 source_id=source_id,

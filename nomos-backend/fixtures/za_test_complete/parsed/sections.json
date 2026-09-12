@@ -1,0 +1,46 @@
+{
+  "sections": [
+    {
+      "id": "za_section_10",
+      "title": "Overtime working time",
+      "content": "(1) An employer may not require or permit an employee to work overtime except in accordance with an agreement and within the limits prescribed.",
+      "level": 2,
+      "parent_id": null
+    },
+    {
+      "id": "za_section_20",
+      "title": "Annual leave",
+      "content": "An employee is entitled to not less than 21 consecutive days annual leave on full remuneration in respect of each annual leave cycle.",
+      "level": 2,
+      "parent_id": null
+    },
+    {
+      "id": "za_section_37",
+      "title": "Notice period",
+      "content": "Notice of termination of employment given by an employer must be at least one week if the employee has been employed for six months or less.",
+      "level": 2,
+      "parent_id": null
+    },
+    {
+      "id": "za_smoke_section_999",
+      "title": "SMOKE SECTION - Must be present for build to pass",
+      "content": "This is a critical section that must be present for the build to pass. It tests the manifest checking functionality.",
+      "level": 2,
+      "parent_id": null
+    },
+    {
+      "id": "za_section_41",
+      "title": "Severance pay",
+      "content": "An employer must pay severance pay equal to one week's remuneration for each completed year of continuous service.",
+      "level": 2,
+      "parent_id": null
+    },
+    {
+      "id": "za_section_76",
+      "title": "Director duties - good faith",
+      "content": "A director must act in good faith in the best interests of the company.",
+      "level": 2,
+      "parent_id": null
+    }
+  ]
+}

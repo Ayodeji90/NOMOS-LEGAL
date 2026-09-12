@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NOMOS golden QA set",
+  "description": "Golden questions per jurisdiction. Answerable items name the sections a competent lawyer would cite; must-refuse items define the honest refusal. Scope: ZA-only for the prototype (Nigeria next); other jurisdictions deferred to Phase 2.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["id", "jurisdiction", "corpus_id", "question", "must_refuse", "expected_acts", "expected_sections", "tags"],
+    "properties": {
+      "id": {"type": "string", "description": "Unique id, e.g. za-001"},
+      "jurisdiction": {"type": "string", "description": "Picker jurisdiction, e.g. za"},
+      "corpus_id": {"type": "string", "description": "Corpus searched, e.g. legislation-za"},
+      "question": {"type": "string", "minLength": 10},
+      "must_refuse": {"type": "boolean", "description": "True when no on-point law is held and the system must refuse"},
+      "expected_acts": {"type": "array", "items": {"type": "string"}, "description": "Acts a competent lawyer would cite; empty when must_refuse"},
+      "expected_sections": {"type": "array", "items": {"type": "string"}, "description": "Section ids a competent lawyer would cite, e.g. 'BCEA s10'; empty when must_refuse"},
+      "refusal_reason": {"type": "string", "description": "Required when must_refuse: wrong-jurisdiction | act-not-held | case-law-gap | no-on-point-statute"},
+      "suggested_jurisdiction": {"type": "string", "description": "Set for wrong-jurisdiction refusals, e.g. gb"},
+      "tags": {"type": "array", "items": {"type": "string"}},
+      "notes": {"type": "string"}
+    },
+    "allOf": [
+      {"if": {"properties": {"must_refuse": {"const": true}}},
+       "then": {"required": ["refusal_reason"]}}
+    ]
+  }
+}
