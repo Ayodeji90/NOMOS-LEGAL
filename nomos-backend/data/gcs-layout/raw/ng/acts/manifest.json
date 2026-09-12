@@ -1,0 +1,20 @@
+{
+  "jurisdiction": "ng",
+  "fetched_at": "2026-09-12T09:20:00.000000+00:00",
+  "quarantined_fabricated": [],
+  "acts": {
+    "labour_act_ng": {
+      "title": "Labour Act",
+      "act_no": "Labour Act",
+      "assent_date": "2004-03-31",
+      "commencement_date": "2004-03-31",
+      "pdf_name": "labour_act_sample.pdf",
+      "text_name": "labour_act_sample.txt",
+      "source_url": "https://example.com/nigerian_labour_act_sample.pdf",
+      "source_note": "Sample text of the Nigerian Labour Act for testing purposes.",
+      "pdf_sha256": "placeholder_pdf_sha256",
+      "text_sha256": "960aa0e1164bf980161d40cbdde0e38e8367a580bc7554048b2c8c128450a058",
+      "text_bytes": 2986
+    }
+  }
+}
