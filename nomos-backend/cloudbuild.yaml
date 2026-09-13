@@ -9,7 +9,7 @@ steps:
       - '-f'
       - 'Dockerfile'
       - '-t'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$BUILD_ID'
       - '-t'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
       - '.'
@@ -18,7 +18,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'push'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$BUILD_ID'
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      - 'push'
       - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
 
   # Step 3: Deploy to Cloud Run
@@ -28,7 +31,7 @@ steps:
       - 'deploy'
       - '${_SERVICE_NAME}'
       - '--image'
-      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+      - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$BUILD_ID'
       - '--region'
       - '${_REGION}'
       - '--platform'
@@ -75,12 +78,12 @@ steps:
 substitutions:
   _REGION: 'us-central1'
   _ENVIRONMENT: 'staging'
-  _REPO_NAME: 'staging-nomos-backend-repo'
-  _SERVICE_NAME: 'staging-nomos-backend'
+  _REPO_NAME: 'nomos-backend-repo'
+  _SERVICE_NAME: 'nomos-backend-staging'
 
 # Images to be pushed to Artifact Registry
 images:
-  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$SHORT_SHA'
+  - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:$BUILD_ID'
   - 'us-central1-docker.pkg.dev/$PROJECT_ID/${_REPO_NAME}/${_SERVICE_NAME}:latest'
 
 # Timeout
