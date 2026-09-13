@@ -3,7 +3,7 @@ import hmac
 import secrets
 from datetime import datetime, timedelta
 
-import jwt
+from jose import jwt
 
 from app.core.config import settings
 from app.models import User
