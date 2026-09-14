@@ -134,12 +134,17 @@ class FlashReranker:
             self._provider = provider
             self._model = getattr(provider, "model_name", "test-model")
         else:
-            # MODEL_RERANK (settings) is the reranker's model knob; fall back
-            # to the config_helper pattern if the settings attr is absent.
-            model = getattr(settings, "MODEL_RERANK", None) or get_model_name_for_service(
-                "rerank", "vertex"
-            )
-            self._provider = ProviderFactory.create("vertex", model)
+            # MODEL_RERANK (settings) is the reranker's model knob; the
+            # provider follows QUERY_UNDERSTANDING_PROVIDER so rerank moves
+            # cloud with the rest of the LLM services (config_helper pattern).
+            provider_name = getattr(settings, "QUERY_UNDERSTANDING_PROVIDER", "vertex")
+            if provider_name == "azure_openai":
+                model = getattr(settings, "MODEL_RERANK_AZURE_OPENAI", None) or "nomos-gpt-4o-mini"
+            else:
+                model = getattr(settings, "MODEL_RERANK", None) or get_model_name_for_service(
+                    "rerank", provider_name
+                )
+            self._provider = ProviderFactory.create(provider_name, model)
             self._model = model
 
     @property

@@ -113,6 +113,13 @@ class Settings(BaseSettings):
     VERIFIER_ANTHROPIC_MODEL: str = "claude-3-haiku-20240307"
     VERIFIER_OPENAI_MODEL: str = "gpt-4o-mini"
 
+    # Azure OpenAI deployment names per service (values are Azure DEPLOYMENT
+    # names created in the resource, not public model ids)
+    QUERY_UNDERSTANDING_AZURE_OPENAI_MODEL: str = "nomos-gpt-4o-mini"
+    WRITER_AZURE_OPENAI_MODEL: str = "nomos-gpt-4o-mini"
+    VERIFIER_AZURE_OPENAI_MODEL: str = "nomos-gpt-4o-mini"
+    MODEL_RERANK_AZURE_OPENAI: str = "nomos-gpt-4o-mini"
+
     # Fallback providers
     QUERY_UNDERSTANDING_FALLBACK_PROVIDER: str = Field(
         default="openai", description="Fallback provider for query understanding"
@@ -130,6 +137,23 @@ class Settings(BaseSettings):
     )
     OPENAI_API_KEY: str | None = Field(
         default=None, description="OpenAI API key (if not using default auth)"
+    )
+
+    # Azure OpenAI (provider seam: same architecture, different cloud)
+    AZURE_OPENAI_ENDPOINT: str | None = Field(
+        default=None,
+        description="Azure OpenAI resource endpoint, e.g. https://<name>.openai.azure.com",
+    )
+    AZURE_OPENAI_API_KEY: str | None = Field(
+        default=None, description="Azure OpenAI API key"
+    )
+    AZURE_OPENAI_API_VERSION: str = "2024-10-21"
+
+    # Session store: 'firestore' (default, GCP) or 'postgres' (cloud-neutral;
+    # sessions live in a small Postgres table -- see migration 005)
+    SESSION_STORE: str = Field(
+        default="firestore",
+        description="Session store backend: 'firestore' or 'postgres'",
     )
 
     # Legacy model configuration (for backward compatibility)
@@ -156,7 +180,11 @@ class Settings(BaseSettings):
     EMBEDDING_MAX_REQUEST_TOKENS: int = 18000
     EMBEDDING_PROVIDER: str = Field(
         default="mock",
-        description="Embedding backend: 'vertex' (real text-embedding-005) or 'mock' (hash-based, tests only)",
+        description=(
+            "Embedding backend: 'vertex' (GCP text-embedding-005), "
+            "'azure_openai' (Azure text-embedding-3-small at configured dims), "
+            "or 'mock' (hash-based, tests only)"
+        ),
     )
 
     # Retrieval

@@ -7,6 +7,7 @@ based on configuration. It supports provider switching and fallback mechanisms.
 import logging
 
 from app.services.ai.providers.anthropic_provider import AnthropicProvider
+from app.services.ai.providers.azure_openai_provider import AzureOpenAIProvider
 from app.services.ai.providers.base import BaseLLMProvider
 from app.services.ai.providers.fallback_provider import FallbackProvider
 from app.services.ai.providers.openai_provider import OpenAIProvider
@@ -23,6 +24,7 @@ class ProviderFactory:
         "vertex": VertexAIProvider,
         "anthropic": AnthropicProvider,
         "openai": OpenAIProvider,
+        "azure_openai": AzureOpenAIProvider,
     }
 
     @classmethod

@@ -239,3 +239,29 @@ class IngestionRun(Base):
     metadata_json: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
 
     __table_args__ = (Index("ix_ingestion_run_jurisdiction_started", "jurisdiction", "started_at"),)
+
+
+class AuthSession(Base):
+    """Auth session row (SESSION_STORE=postgres; cloud-neutral Firestore swap).
+
+    Mirrors the document shape FirestoreManager persists in its ``sessions``
+    collection — see app/core/pg_sessions.py, which is the API-compatible
+    store used by the auth layer when SESSION_STORE=postgres.
+    """
+
+    session_id: Mapped[str] = mapped_column(String(64), primary_key=True)
+    user_id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), ForeignKey("user.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    email: Mapped[str] = mapped_column(String(255), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), nullable=False
+    )
+    updated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    expires_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), index=True, nullable=False)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    # ``metadata`` is reserved on Declarative models; the Firestore store's
+    # dict field maps to metadata_ here.
+    metadata_: Mapped[dict] = mapped_column("metadata", JSONB, default=dict, nullable=False)
+
+    __table_args__ = (Index("ix_auth_session_user_active", "user_id", "is_active"),)

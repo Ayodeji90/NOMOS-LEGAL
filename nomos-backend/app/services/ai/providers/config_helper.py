@@ -11,8 +11,8 @@ def get_model_name_for_service(service: str, provider: str) -> str:
     """Get the model name for a service based on the provider.
 
     Args:
-        service: Service name ('query_understanding', 'writer', 'verifier')
-        provider: Provider name ('vertex', 'anthropic', 'openai')
+        service: Service name ('query_understanding', 'writer', 'verifier', 'rerank')
+        provider: Provider name ('vertex', 'anthropic', 'openai', 'azure_openai')
 
     Returns:
         Model name for the service and provider combination
@@ -43,6 +43,10 @@ def get_provider_config(provider: str) -> dict:
         config["api_key"] = settings.ANTHROPIC_API_KEY
     elif provider == "openai":
         config["api_key"] = settings.OPENAI_API_KEY
+    elif provider == "azure_openai":
+        config["endpoint"] = settings.AZURE_OPENAI_ENDPOINT
+        config["api_key"] = settings.AZURE_OPENAI_API_KEY
+        config["api_version"] = settings.AZURE_OPENAI_API_VERSION
 
     return config
 

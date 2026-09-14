@@ -10,7 +10,8 @@ from app.core.access_gate import access_gate
 from app.core.auth import auth_manager
 from app.core.config import settings
 from app.core.firestore import firestore_manager
-from app.db.session import get_db
+from app.core.pg_sessions import PgSessionStore
+from app.db.session import db_manager, get_db
 from app.models import APIKey, User
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -204,12 +205,23 @@ async def login(
     refresh_token = auth_manager.create_refresh_token(user)
 
     session_id = __import__("uuid").uuid4().hex
-    await firestore_manager.create_session(
-        session_id=session_id,
-        user_id=str(user.id),
-        email=user.email,
-        expires_in_days=settings.SESSION_TTL_DAYS,
-    )
+    if settings.SESSION_STORE == "postgres":
+        # Cloud-neutral path (Azure staging): sessions live in Postgres
+        # (migration 005); committed with the login's own transaction.
+        await PgSessionStore(db).create_session(
+            session_id=session_id,
+            user_id=str(user.id),
+            email=user.email,
+            expires_in_days=settings.SESSION_TTL_DAYS,
+        )
+        await db.commit()
+    else:
+        await firestore_manager.create_session(
+            session_id=session_id,
+            user_id=str(user.id),
+            email=user.email,
+            expires_in_days=settings.SESSION_TTL_DAYS,
+        )
 
     return Token(
         access_token=access_token,
@@ -256,7 +268,11 @@ async def logout(
         if payload:
             session_id = payload.get("session_id")
             if session_id:
-                await firestore_manager.delete_session(session_id)
+                if settings.SESSION_STORE == "postgres":
+                    async with db_manager.session() as session:
+                        await PgSessionStore(session).delete_session(session_id)
+                else:
+                    await firestore_manager.delete_session(session_id)
 
     return {"message": "Logged out successfully"}
 
