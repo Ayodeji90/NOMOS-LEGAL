@@ -24,7 +24,14 @@ logger = logging.getLogger("cleanup_reingest")
 
 
 async def cleanup_duplicates() -> dict:
-    """Delete legacy-uppercase 'ZA' source duplicates (cascade removes their chunks)."""
+    """Delete legacy-uppercase 'ZA' source duplicates (cascade removes their chunks).
+
+    On databases whose jurisdiction enum predates migration 004 normalization
+    this is a real repair; on databases where the enum only accepts lowercase
+    values (Cloud SQL provisioned from 004+) the 'ZA' comparison itself raises
+    InvalidTextRepresentationError -- there are no legacy rows possible, so we
+    treat that as a no-op.
+    """
     import asyncpg
 
     from app.core.config import settings
@@ -32,18 +39,22 @@ async def cleanup_duplicates() -> dict:
     dsn = str(settings.DATABASE_URL).replace("postgresql+asyncpg://", "postgres://")
     conn = await asyncpg.connect(dsn)
     try:
-        # Only delete rows whose jurisdiction is the uppercase variant AND
-        # whose lowercase twin exists (never destroy the only copy).
-        rows = await conn.fetch(
-            """
-            SELECT s.id, s.source_id FROM source s
-            WHERE s.jurisdiction = 'ZA'
-              AND EXISTS (
-                SELECT 1 FROM source t
-                WHERE t.source_id = s.source_id AND t.jurisdiction = 'za'
-              )
-            """
-        )
+        try:
+            rows = await conn.fetch(
+                """
+                SELECT s.id, s.source_id FROM source s
+                WHERE s.jurisdiction = 'ZA'
+                  AND EXISTS (
+                    SELECT 1 FROM source t
+                    WHERE t.source_id = s.source_id AND t.jurisdiction = 'za'
+                  )
+                """
+            )
+        except asyncpg.exceptions.InvalidTextRepresentationError:
+            logger.info(
+                "jurisdiction enum rejects 'ZA' -- no legacy duplicates possible, skipping cleanup"
+            )
+            return {"deleted_duplicates": 0, "remaining": []}
         deleted = 0
         for r in rows:
             await conn.execute("DELETE FROM source WHERE id = $1", r["id"])

@@ -67,6 +67,12 @@ class Settings(BaseSettings):
     REDIS_SOCKET_TIMEOUT: int = 5
     REDIS_SOCKET_CONNECT_TIMEOUT: int = 5
 
+    # Staging resilience: when True, rate limiting and quota checks allow
+    # traffic (log-only) while Redis is unavailable, instead of failing every
+    # request. Never enable in production — quotas go unenforced during
+    # Redis outages. Used to deploy staging without a reachable Memorystore.
+    REDIS_FAIL_OPEN: bool = False
+
     # Firestore (sessions)
     FIRESTORE_PROJECT_ID: str | None = Field(
         default=None,

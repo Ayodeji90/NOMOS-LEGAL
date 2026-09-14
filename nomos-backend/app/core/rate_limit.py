@@ -4,11 +4,20 @@ from dataclasses import dataclass
 
 from fastapi import Request
 from redis.asyncio import Redis
+from redis.exceptions import RedisError
 
 from app.core.config import settings
 from app.core.redis import redis_manager
 
 logger = logging.getLogger(__name__)
+
+
+def _redis_fail_open(operation: str) -> bool:
+    """Whether to allow traffic when Redis is unreachable (staging-only flag)."""
+    if settings.REDIS_FAIL_OPEN:
+        logger.warning("Redis unavailable; %s failing open (REDIS_FAIL_OPEN)", operation)
+        return True
+    return False
 
 
 @dataclass
@@ -54,12 +63,22 @@ class RateLimiter:
         now = int(time.time())
         window_start = now - window_seconds
 
-        async with self.redis.pipeline(transaction=True) as pipe:
-            pipe.zremrangebyscore(key, 0, window_start)
-            pipe.zcard(key)
-            pipe.zadd(key, {str(now): now})
-            pipe.expire(key, window_seconds + 1)
-            results = await pipe.execute()
+        try:
+            async with self.redis.pipeline(transaction=True) as pipe:
+                pipe.zremrangebyscore(key, 0, window_start)
+                pipe.zcard(key)
+                pipe.zadd(key, {str(now): now})
+                pipe.expire(key, window_seconds + 1)
+                results = await pipe.execute()
+        except (RedisError, OSError):
+            if _redis_fail_open("rate limit check"):
+                return RateLimitResult(
+                    allowed=True,
+                    remaining=limit,
+                    reset_at=now + window_seconds,
+                    limit=limit,
+                )
+            raise
 
         current_count = results[1]
         remaining = max(0, limit - current_count - 1)
@@ -105,7 +124,17 @@ class QuotaManager:
         key = self.get_quota_key(user_id, quota_type)
         now = int(time.time())
 
-        current = await self.redis.get(key)
+        try:
+            current = await self.redis.get(key)
+        except (RedisError, OSError):
+            if _redis_fail_open("quota check"):
+                return RateLimitResult(
+                    allowed=True,
+                    remaining=limit,
+                    reset_at=now + 86400,
+                    limit=limit,
+                )
+            raise
         current_count = int(current) if current else 0
         remaining = max(0, limit - current_count)
         allowed = current_count < limit
@@ -122,18 +151,30 @@ class QuotaManager:
 
     async def consume_quota(self, user_id: str, quota_type: str) -> int:
         key = self.get_quota_key(user_id, quota_type)
-        pipe = self.redis.pipeline()
-        pipe.incr(key)
-        pipe.expire(key, 86400)
-        results = await pipe.execute()
+        try:
+            pipe = self.redis.pipeline()
+            pipe.incr(key)
+            pipe.expire(key, 86400)
+            results = await pipe.execute()
+        except (RedisError, OSError):
+            if _redis_fail_open("quota consume"):
+                return 0
+            raise
         return results[0]
 
     async def get_quota_status(self, user_id: str) -> dict:
         queries_key = self.get_quota_key(user_id, "queries")
         writer_key = self.get_quota_key(user_id, "writer")
 
-        queries_used = int(await self.redis.get(queries_key) or 0)
-        writer_used = int(await self.redis.get(writer_key) or 0)
+        try:
+            queries_used = int(await self.redis.get(queries_key) or 0)
+            writer_used = int(await self.redis.get(writer_key) or 0)
+        except (RedisError, OSError):
+            if _redis_fail_open("quota status"):
+                queries_used = 0
+                writer_used = 0
+            else:
+                raise
 
         return {
             "queries": {
