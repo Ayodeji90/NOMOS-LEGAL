@@ -292,5 +292,33 @@ class EmbeddingService:
         return chunks
 
 
-# Global instance for dependency injection.
-embedding_service = EmbeddingService()
+class _LazyEmbeddingService:
+    """Import-time placeholder that builds the real service on first use.
+
+    Eagerly constructing EmbeddingService runs ``vertexai.init()`` and a live
+    model-metadata call at import time, which makes every module that imports
+    this one (test collection, offline tooling) fail whenever GCP is
+    unreachable or denied. With the proxy, ``from app.services.ai import
+    embedding_service`` is side-effect-free; the real provider is built on
+    first attribute access or call.
+    """
+
+    _real: EmbeddingService | None = None
+
+    def _materialize(self) -> EmbeddingService:
+        if self._real is None:
+            self._real = EmbeddingService()
+        return self._real
+
+    def __getattr__(self, name: str):
+        return getattr(self._materialize(), name)
+
+    def __setattr__(self, name: str, value):
+        if name == "_real":
+            object.__setattr__(self, name, value)
+            return
+        setattr(self._materialize(), name, value)
+
+
+# Global instance for dependency injection (lazy; see _LazyEmbeddingService).
+embedding_service = _LazyEmbeddingService()

@@ -84,36 +84,41 @@ async def test_doc_type_filter_live_db() -> None:
     the DDL but no ingested corpus; run locally against the dev DB to execute.
     """
     import pytest
-    from sqlalchemy import text
+    from sqlalchemy.exc import OperationalError
 
     from app.db.session import db_manager
 
     db_manager.initialize()
     svc = HybridSearchService()
 
-    async with db_manager.session() as session:
-        n = await session.execute(
-            text(
-                "SELECT COUNT(*) FROM chunk c "
-                "JOIN version v ON c.version_id = v.id "
-                "JOIN source s ON v.source_id = s.id "
-                "WHERE lower(s.jurisdiction) = 'za'"
-            )
-        )
-        if (n.scalar() or 0) == 0:
-            pytest.skip("no ZA corpus in this database (CI test schema)")
+    try:
+        async with db_manager.session() as session:
+            await _run_live_check(session, svc, pytest)
+    except (OperationalError, OSError) as exc:
+        pytest.skip(f"local dev database not reachable: {exc}")
 
-        from app.services.ai.embedding_service import embedding_service
 
-        qvec = (
-            await embedding_service.generate_embeddings(["annual leave entitlement"])
-        )[0]
+async def _run_live_check(session, svc, pytest) -> None:
+    from sqlalchemy import text
 
-        act_rows = await svc._dense_leg(
-            session, qvec, "za", None, 10, doc_types=("ACT",)
+    n = await session.execute(
+        text(
+            "SELECT COUNT(*) FROM chunk c "
+            "JOIN version v ON c.version_id = v.id "
+            "JOIN source s ON v.source_id = s.id "
+            "WHERE lower(s.jurisdiction) = 'za'"
         )
-        none_rows = await svc._dense_leg(
-            session, qvec, "za", None, 10, doc_types=("REGULATION",)
-        )
-        assert len(act_rows) > 0, "ZA ACT corpus should hit"
-        assert len(none_rows) == 0, "no REGULATION sources exist yet (pilot pending)"
+    )
+    if (n.scalar() or 0) == 0:
+        pytest.skip("no ZA corpus in this database (CI test schema)")
+
+    from app.services.ai.embedding_service import embedding_service
+
+    qvec = (await embedding_service.generate_embeddings(["annual leave entitlement"]))[0]
+
+    act_rows = await svc._dense_leg(session, qvec, "za", None, 10, doc_types=("ACT",))
+    none_rows = await svc._dense_leg(
+        session, qvec, "za", None, 10, doc_types=("REGULATION",)
+    )
+    assert len(act_rows) > 0, "ZA ACT corpus should hit"
+    assert len(none_rows) == 0, "no REGULATION sources exist yet (pilot pending)"
