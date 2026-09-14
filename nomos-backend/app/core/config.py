@@ -1,7 +1,7 @@
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field, PostgresDsn, RedisDsn
+from pydantic import Field, RedisDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -49,7 +49,7 @@ class Settings(BaseSettings):
     WORKERS: int = 1
 
     # Database (Cloud SQL / AlloyDB PostgreSQL with pgvector)
-    DATABASE_URL: PostgresDsn = Field(
+    DATABASE_URL: str = Field(
         default="postgresql+asyncpg://postgres:postgres@localhost:5432/nomos",
         description="Async PostgreSQL connection string with pgvector",
     )
