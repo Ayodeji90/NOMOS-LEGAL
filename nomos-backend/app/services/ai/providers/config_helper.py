@@ -62,8 +62,15 @@ def get_embedding_config() -> dict:
     Returns:
         Keyword arguments for the configured embedding backend.
     """
+    # The Azure backend's model_name is the Azure DEPLOYMENT name, which is
+    # configured separately from the Vertex model id.
+    model = (
+        settings.AZURE_OPENAI_EMBEDDING_MODEL
+        if settings.EMBEDDING_PROVIDER.strip().lower() == "azure_openai"
+        else settings.MODEL_EMBEDDING
+    )
     return {
-        "model_name": settings.MODEL_EMBEDDING,
+        "model_name": model,
         "dimensions": settings.EMBEDDING_DIMENSIONS,
         "batch_size": settings.EMBEDDING_BATCH_SIZE,
     }

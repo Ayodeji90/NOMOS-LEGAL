@@ -159,6 +159,9 @@ class Settings(BaseSettings):
     # Legacy model configuration (for backward compatibility)
     MODEL_QUERY_UNDERSTANDING: str = "gemini-2.5-flash"
     MODEL_EMBEDDING: str = "text-embedding-005"
+    # Azure embedding deployment name (EMBEDDING_PROVIDER=azure_openai).
+    # Distinct from MODEL_EMBEDDING, which is the Vertex model id.
+    AZURE_OPENAI_EMBEDDING_MODEL: str = "text-embedding-3-small"
     MODEL_RERANK: str = "gemini-2.5-flash"
     MODEL_WRITER: str = "gemini-2.5-flash"
     MODEL_VERIFIER: str = "gemini-2.5-flash"

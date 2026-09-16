@@ -27,10 +27,23 @@ target_metadata = Base.metadata
 
 # Convert async postgres URL to sync for alembic
 database_url = os.getenv("DATABASE_URL", str(settings.DATABASE_URL))
-# Replace asyncpg driver with psycopg2 for synchronous migrations
-sync_database_url = database_url.replace("postgresql+asyncpg://", "postgresql+psycopg2://")
-sync_database_url = sync_database_url.replace("?sslmode=require", "")
-sync_database_url = sync_database_url.replace("?sslmode=disable", "")
+# Replace asyncpg driver with a synchronous one for migrations. Prefer
+# psycopg2; fall back to pg8000 (pure Python — works where no psycopg2
+# wheel exists, e.g. Python 3.14 venvs) and pass sslmode through, which
+# Azure Flexible Server requires.
+if "postgresql+asyncpg://" in database_url:
+    try:
+        import psycopg2  # noqa: F401
+
+        _sync_driver = "postgresql+psycopg2://"
+    except ImportError:
+        _sync_driver = "postgresql+pg8000://"
+    sync_database_url = database_url.replace("postgresql+asyncpg://", _sync_driver)
+    sync_database_url = sync_database_url.replace("?sslmode=require", "?sslmode=require")
+    sync_database_url = sync_database_url.replace("?ssl=require", "?sslmode=require")
+    sync_database_url = sync_database_url.replace("?sslmode=disable", "")
+else:
+    sync_database_url = database_url
 config.set_main_option("sqlalchemy.url", sync_database_url)
 
 

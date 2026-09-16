@@ -49,8 +49,6 @@ docs/
 app/data/corpora/
 app/data/raw/
 *.xml
-*.json
-!app/data/za_synonyms.json
 
 # Logs
 *.log

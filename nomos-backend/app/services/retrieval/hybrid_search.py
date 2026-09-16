@@ -157,13 +157,13 @@ class HybridSearchService:
             FROM chunk c
             JOIN version v ON c.version_id = v.id
             JOIN source s ON v.source_id = s.id
-            WHERE lower(s.jurisdiction) = :jurisdiction
+            WHERE s.jurisdiction = :jurisdiction
               AND c.in_force = true
               AND c.embedding IS NOT NULL
               AND (c.as_at_date IS NULL OR c.as_at_date <= COALESCE(:as_of, now()))
         """
         if doc_types:
-            sql += "          AND lower(s.document_type) = ANY(:doc_types)\n"
+            sql += "          AND s.document_type = ANY(:doc_types)\n"
         return sql
 
     async def _dense_leg(

@@ -77,7 +77,7 @@ class RetrievalService:
             "act": hit.act_name,
             "section": hit.section_no,
             "jurisdiction": (
-                hit.source_id.split("-")[1] if "-" in hit.source_id else "za"
+                hit.source_id.split("-")[0] if "-" in hit.source_id else "za"
             ),
             "title": hit.source_title,
             # Retrieval scores for debugging/observability

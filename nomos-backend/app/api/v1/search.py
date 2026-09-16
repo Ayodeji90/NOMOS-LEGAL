@@ -65,7 +65,7 @@ class SearchResponse(BaseModel):
     errors: list[dict]
     missReason: str | None = None
     sources: list[SourceResponse]
-    structured: StructuredAnswer
+    structured: StructuredAnswer | dict
     answer: str
     grounded: bool
     provider: str
@@ -80,7 +80,7 @@ class RefusalResponse(BaseModel):
     errors: list[dict]
     missReason: str
     sources: list[SourceResponse]
-    structured: StructuredAnswer
+    structured: StructuredAnswer | dict
     answer: str
     grounded: bool
     provider: str
@@ -322,7 +322,7 @@ async def search(
                         jurisdiction=excerpt.get("jurisdiction")
                     ) for excerpt in excerpts[:3]  # Top 3 sources
                 ],
-                structured=writer_output,
+                structured=writer_output.model_dump(),
                 answer="",
                 grounded=False,
                 provider="nomos",
@@ -381,7 +381,7 @@ async def search(
                         jurisdiction=excerpt.get("jurisdiction")
                     ) for excerpt in excerpts[:3]  # Top 3 sources
                 ],
-                structured=writer_output,
+                structured=writer_output.model_dump(),
                 answer=writer_output.directAnswer,
                 grounded=True,
                 provider="nomos",
@@ -449,7 +449,7 @@ async def search(
                                     jurisdiction=excerpt.get("jurisdiction")
                                 ) for excerpt in excerpts[:3]  # Top 3 sources
                             ],
-                            structured=repair_output,
+                            structured=repair_output.model_dump(),
                             answer="",
                             grounded=False,
                             provider="nomos",
@@ -507,7 +507,7 @@ async def search(
                                         jurisdiction=excerpt.get("jurisdiction")
                                     ) for excerpt in excerpts[:3]  # Top 3 sources
                                 ],
-                                structured=repair_output,
+                                structured=repair_output.model_dump(),
                                 answer=repair_output.directAnswer,
                                 grounded=True,
                                 provider="nomos",
@@ -541,7 +541,7 @@ async def search(
                                         jurisdiction=excerpt.get("jurisdiction")
                                     ) for excerpt in excerpts[:3]  # Top 3 sources
                                 ],
-                                structured=verify_repair_output,  # Use verification output for structured info
+                                structured=verify_repair_output.model_dump(),  # Use verification output for structured info
                                 answer="",  # Empty answer as per refusal
                                 grounded=False,
                                 provider="nomos",
@@ -578,6 +578,7 @@ async def search(
                         structured=StructuredAnswer(
                             directAnswer="Unable to generate answer due to service error.",
                             explanation="The writer service encountered an internal error during repair.",
+                            legalBasis=[],
                             gaps="Service error prevented answer generation during repair attempt.",
                             grounded=False
                         ),
@@ -617,7 +618,7 @@ async def search(
                             jurisdiction=excerpt.get("jurisdiction")
                         ) for excerpt in excerpts[:3]  # Top 3 sources
                     ],
-                    structured=verifier_output,  # Use verification output for structured info
+                    structured=verifier_output.model_dump(),  # Use verification output for structured info
                     answer="",  # Empty answer as per refusal
                     grounded=False,
                     provider="nomos",
@@ -654,6 +655,7 @@ async def search(
             structured=StructuredAnswer(
                 directAnswer="Unable to generate answer due to service error.",
                 explanation="The writer service encountered an internal error.",
+                legalBasis=[],
                 gaps="Service error prevented answer generation.",
                 grounded=False
             ),

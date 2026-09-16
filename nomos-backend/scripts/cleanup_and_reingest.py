@@ -36,8 +36,14 @@ async def cleanup_duplicates() -> dict:
 
     from app.core.config import settings
 
-    dsn = str(settings.DATABASE_URL).replace("postgresql+asyncpg://", "postgres://")
-    conn = await asyncpg.connect(dsn)
+    _dsn_raw = str(settings.DATABASE_URL)
+    _ssl = "require" if "ssl=require" in _dsn_raw else None
+    _dsn = (
+        _dsn_raw
+        .replace("postgresql+asyncpg://", "postgresql://")
+        .replace("?ssl=require", "")
+    )
+    conn = await asyncpg.connect(_dsn, ssl=_ssl)
     try:
         try:
             rows = await conn.fetch(
@@ -73,15 +79,18 @@ async def main() -> int:
     await cleanup_duplicates()
 
     # Verify provider BEFORE embedding: a mock run would poison retrieval eval.
+    # Any real provider is fine (vertex on GCP, azure_openai on Azure) —
+    # only mock vectors are forbidden.
     from app.core.config import settings
 
-    if settings.EMBEDDING_PROVIDER != "vertex":
+    provider = settings.EMBEDDING_PROVIDER.strip().lower()
+    if provider == "mock":
         logger.error(
-            "EMBEDDING_PROVIDER is '%s' -- refusing to ingest mock vectors. "
-            "Set EMBEDDING_PROVIDER=vertex first.",
-            settings.EMBEDDING_PROVIDER,
+            "EMBEDDING_PROVIDER is 'mock' -- refusing to ingest non-semantic "
+            "hash vectors. Set a real provider (vertex / azure_openai) first."
         )
         return 1
+    logger.info("Ingesting with EMBEDDING_PROVIDER=%s", provider)
 
     from app.services.ingestion_service import IngestionService
 
@@ -91,8 +100,14 @@ async def main() -> int:
     # the lowercase versions' chunks to force a true re-embed.
     import asyncpg
 
-    dsn = str(settings.DATABASE_URL).replace("postgresql+asyncpg://", "postgres://")
-    conn = await asyncpg.connect(dsn)
+    _dsn_raw = str(settings.DATABASE_URL)
+    _ssl = "require" if "ssl=require" in _dsn_raw else None
+    _dsn = (
+        _dsn_raw
+        .replace("postgresql+asyncpg://", "postgresql://")
+        .replace("?ssl=require", "")
+    )
+    conn = await asyncpg.connect(_dsn, ssl=_ssl)
     for sid in ("za-act-75-1997-bcea", "za-act-71-2008-companies"):
         n = await conn.execute(
             """

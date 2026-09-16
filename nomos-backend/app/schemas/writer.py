@@ -52,7 +52,7 @@ class WriterOutput(BaseModel):
 
     # Direct answer to the user's question (3-8 short paragraphs with [n] citations)
     directAnswer: str = Field(
-        description="Direct answer with [n] citations to retrieved excerpts", max_length=2000
+        description="Direct answer with [n] citations to retrieved excerpts", max_length=8000
     )
 
     # Explanation of legal reasoning

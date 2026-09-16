@@ -88,7 +88,10 @@ class QueryUnderstandingService:
             ) from e
 
         try:
-            model = GenerativeModel(self._model)
+            model = GenerativeModel(
+                self._model,
+                system_instruction=system,
+            )
 
             generation_config = GenerationConfig(
                 temperature=settings.QUERY_UNDERSTANDING_TEMPERATURE,
@@ -99,7 +102,6 @@ class QueryUnderstandingService:
             response = model.generate_content(
                 contents=user,
                 generation_config=generation_config,
-                system_instruction=system,
             )
 
             text = response.text

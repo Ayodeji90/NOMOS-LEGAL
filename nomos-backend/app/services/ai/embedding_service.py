@@ -300,6 +300,7 @@ class AzureOpenAIEmbeddingBackend:
             api_key=self._api_key,
             api_version=self._api_version,
             azure_endpoint=self._endpoint,
+            max_retries=0,  # we handle retries ourselves
         )
 
     async def generate_embeddings(self, texts: list[str]) -> list[list[float]]:
@@ -309,34 +310,36 @@ class AzureOpenAIEmbeddingBackend:
         vectors: list[list[float]] = []
         done = 0
         for batch in self._pack_batches(texts):
-            last_error: Exception | None = None
             batch_vectors: list[list[float]] | None = None
+            # Azure S0 free-tier rate limit is extremely tight. Each retry
+            # attempt IS a request that resets the cooldown window, so we
+            # must NOT retry rapidly. Strategy: try up to 5 times, but on
+            # a 429, always wait 65s (just past the 60s retry-after).
             for attempt in range(5):
                 try:
                     resp = await client.embeddings.create(
-                        model=self._model_name,  # Azure DEPLOYMENT name
+                        model=self._model_name,
                         input=batch,
                         dimensions=self._dimensions,
                     )
                     batch_vectors = [item.embedding for item in resp.data]
-                    last_error = None
                     break
                 except Exception as exc:  # noqa: BLE001 - retry any API error
-                    last_error = exc
                     is_rate = "429" in str(exc) or "rate" in str(exc).lower()
-                    wait = min(60.0, 8.0 * (2 ** (attempt // 2))) if is_rate else 2**attempt
+                    if is_rate:
+                        wait = 20.0  # small batches can retry every 20s
+                    else:
+                        wait = min(2.0 ** attempt, 10.0)
                     logger.warning(
-                        "Azure embedding batch failed (attempt %d/5%s): %s -- retrying in %ds",
-                        attempt + 1,
-                        ", rate-limit" if is_rate else "",
-                        exc,
-                        wait,
+                        "Azure embedding batch failed (attempt %d/5%s): %s -- waiting %.0fs",
+                        attempt + 1, " [rate-limit]" if is_rate else "",
+                        exc, wait,
                     )
                     await asyncio.sleep(wait)
-            if last_error is not None or batch_vectors is None:
+            if batch_vectors is None:
                 raise RuntimeError(
-                    f"Azure OpenAI embedding failed after 5 attempts: {last_error}"
-                ) from last_error
+                    f"Azure OpenAI embedding failed after 5 attempts"
+                )
             if len(batch_vectors) != len(batch):
                 raise RuntimeError(
                     f"Azure returned {len(batch_vectors)} vectors for {len(batch)} inputs"

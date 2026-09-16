@@ -85,7 +85,10 @@ class WriterService:
             ) from e
 
         try:
-            model = GenerativeModel(self._model)
+            model = GenerativeModel(
+                self._model,
+                system_instruction=system,
+            )
 
             generation_config = GenerationConfig(
                 temperature=0,
@@ -96,7 +99,6 @@ class WriterService:
             response = model.generate_content(
                 contents=user,
                 generation_config=generation_config,
-                system_instruction=system,
             )
 
             text = response.text
