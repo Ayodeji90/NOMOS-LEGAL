@@ -1,6 +1,6 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .query_understanding import QueryUnderstandingOutput
 
@@ -72,6 +72,29 @@ class WriterOutput(BaseModel):
     metadata: dict[str, Any] | None = Field(
         default=None, description="Additional metadata about generation (token usage, model, etc.)"
     )
+
+    @field_validator("gaps", mode="before")
+    @classmethod
+    def coerce_gaps_to_string(cls, v: Any) -> str:
+        if isinstance(v, list):
+            return "; ".join(str(item) for item in v)
+        return str(v)
+
+    @field_validator("explanation", mode="before")
+    @classmethod
+    def coerce_explanation_to_string(cls, v: Any) -> str:
+        if isinstance(v, list):
+            return " ".join(str(item) for item in v)
+        return str(v)
+
+    @field_validator("followUps", mode="before")
+    @classmethod
+    def coerce_followUps_to_list(cls, v: Any) -> list[str]:
+        if isinstance(v, str):
+            return [v]
+        if isinstance(v, list):
+            return [str(item) for item in v]
+        return [str(v)]
 
 
 # Re-use StructuredAnswer from search.py for consistency in API responses

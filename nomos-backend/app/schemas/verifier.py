@@ -1,6 +1,25 @@
 from typing import Any
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
+
+
+def _coerce_to_str_list(v: Any) -> list[str]:
+    """Coerce a Gemini response field to list[str].
+
+    Gemini sometimes returns a single string where a list[str] is expected,
+    or a dict/list-of-dicts where a flat list is expected.
+    """
+    if isinstance(v, list):
+        return [str(item) for item in v]
+    if isinstance(v, str):
+        return [v] if v else []
+    if isinstance(v, dict):
+        # Gemini sometimes nests under a key like "issues" or "items"
+        for key in ("issues", "items", "problems", "details"):
+            if key in v and isinstance(v[key], list):
+                return [str(item) for item in v[key]]
+        return [str(v)]
+    return []
 
 
 class VerifierVerdict(BaseModel):
@@ -68,6 +87,46 @@ class VerifierVerdict(BaseModel):
 
     # Summary of verification outcome
     summary: str = Field(description="Human-readable summary of verification results")
+
+    @field_validator("citation_issues", "section_issues", "entailment_issues", "currency_issues", "suggested_repairs", mode="before")
+    @classmethod
+    def coerce_issue_list(cls, v: Any) -> list[str]:
+        return _coerce_to_str_list(v)
+
+    @field_validator("summary", mode="before")
+    @classmethod
+    def coerce_summary_to_string(cls, v: Any) -> str:
+        if isinstance(v, list):
+            return "; ".join(str(item) for item in v)
+        return str(v)
+
+    @field_validator("confidence", mode="before")
+    @classmethod
+    def coerce_confidence(cls, v: Any) -> float:
+        if isinstance(v, str):
+            try:
+                return float(v)
+            except ValueError:
+                return 0.5
+        if isinstance(v, dict):
+            # Gemini might return {"score": 0.8} instead of 0.8
+            for key in ("score", "value", "confidence"):
+                if key in v:
+                    try:
+                        return float(v[key])
+                    except (ValueError, TypeError):
+                        pass
+            return 0.5
+        return float(v) if v is not None else 0.5
+
+    @field_validator("should_repair", mode="before")
+    @classmethod
+    def coerce_repair_bool(cls, v: Any) -> bool:
+        if isinstance(v, str):
+            return v.lower() in ("true", "yes", "1", "repair")
+        if isinstance(v, dict):
+            return bool(v)
+        return bool(v)
 
 
 class VerifierInput(BaseModel):

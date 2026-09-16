@@ -1,6 +1,6 @@
-from typing import Literal
+from typing import Any, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 
 class QueryUnderstandingOutput(BaseModel):
@@ -56,6 +56,38 @@ class QueryUnderstandingOutput(BaseModel):
     complexity_score: float = Field(
         ge=0.0, le=1.0, default=0.5, description="Estimated complexity of the question (0.0 to 1.0)"
     )
+
+    @field_validator("expanded_queries", "named_acts", mode="before")
+    @classmethod
+    def coerce_to_str_list(cls, v: Any) -> list[str]:
+        if isinstance(v, list):
+            return [str(item) for item in v]
+        if isinstance(v, str):
+            return [v] if v else []
+        if isinstance(v, dict):
+            for key in ("items", "queries", "acts", "names"):
+                if key in v and isinstance(v[key], list):
+                    return [str(item) for item in v[key]]
+            return [str(v)]
+        return []
+
+    @field_validator("confidence", "complexity_score", mode="before")
+    @classmethod
+    def coerce_float(cls, v: Any) -> float:
+        if isinstance(v, str):
+            try:
+                return float(v)
+            except ValueError:
+                return 0.5
+        if isinstance(v, dict):
+            for key in ("score", "value", "confidence"):
+                if key in v:
+                    try:
+                        return float(v[key])
+                    except (ValueError, TypeError):
+                        pass
+            return 0.5
+        return float(v) if v is not None else 0.5
 
 
 class QueryUnderstandingInput(BaseModel):
